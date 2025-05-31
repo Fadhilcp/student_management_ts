@@ -13,7 +13,7 @@ export class StudentController {
         try {
             
             const students = await this.service.getAll()
-            res.render('index.ejs',{students})
+            res.render('index',{students})
 
         } catch (error) {
             res.status(500).json({error: 'Failed to fetch students'})
