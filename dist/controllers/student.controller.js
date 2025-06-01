@@ -15,7 +15,7 @@ class StudentController {
         this.getAll = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const students = yield this.service.getAll();
-                res.render('index.ejs', { students });
+                res.render('index', { students });
             }
             catch (error) {
                 res.status(500).json({ error: 'Failed to fetch students' });
@@ -23,26 +23,26 @@ class StudentController {
         });
         this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const student = yield this.service.create(req.body);
-                res.status(201).json(student);
+                yield this.service.create(req.body);
+                res.status(201).json({ success: 'Student created' });
             }
             catch (error) {
                 res.status(500).json({ error: 'Failed to create student' });
             }
         });
-        this.update = (req, res) => {
+        this.update = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const updated = this.service.update(req.params.id, req.body);
-                res.json(updated);
+                yield this.service.update(req.params.id, req.body);
+                res.status(201).json({ success: 'Student updated' });
             }
             catch (error) {
                 res.status(500).json({ error: 'Failed to update student' });
             }
-        };
+        });
         this.delete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.service.delete(req.params.id);
-                res.json({ message: 'Deleted successfully' });
+                res.json({ success: 'Deleted successfully' });
             }
             catch (error) {
                 res.status(500).json({ error: 'Failed to delete student' });

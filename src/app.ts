@@ -19,7 +19,11 @@ app.set('views',path.join(__dirname,'views'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.get('/',studentRoute)
+app.get('/', (req,res) => {
+    res.redirect('/students')
+})
+
+app.use('/students',studentRoute)
 
 
 app.listen(port,() => {

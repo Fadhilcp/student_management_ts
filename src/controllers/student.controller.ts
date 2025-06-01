@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { StudentService } from "../services/student.service";
 
+
+
 export class StudentController {
 
     private service: StudentService
@@ -23,19 +25,19 @@ export class StudentController {
     create = async (req : Request , res : Response) => {
         try {
 
-            const student = await this.service.create(req.body)
-            res.status(201).json(student)
+            await this.service.create(req.body)
+            res.status(201).json({success:'Student created'})
             
         } catch (error) {
             res.status(500).json({error: 'Failed to create student'})
         }
     }
 
-    update = (req : Request , res : Response) => {
+    update = async (req : Request , res : Response) => {
         try {
 
-            const updated = this.service.update(req.params.id,req.body)
-            res.json(updated)
+            await this.service.update(req.params.id,req.body)
+            res.status(201).json({success:'Student updated'})
         } catch (error) {
             res.status(500).json({error :'Failed to update student'})
         }
@@ -45,7 +47,7 @@ export class StudentController {
         try {
 
             await this.service.delete(req.params.id)
-            res.json({message : 'Deleted successfully'})
+            res.json({success : 'Deleted successfully'})
             
         } catch (error) {
             res.status(500).json({error : 'Failed to delete student'})
